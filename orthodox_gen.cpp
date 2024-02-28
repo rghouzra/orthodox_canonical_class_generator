@@ -84,8 +84,8 @@ int main() {
                 makefile << "FLAGS = -Wall -Wextra -Werror\n";
                 makefile << "CC = c++\n";
                 makefile << "STD = -std=c++98\n";
-                makefile << "SRC = " << CLASS << ".cpp main.cpp\n";
-                makefile << "INC = " << CLASS << ".hpp\n";
+                makefile << "SRC = $(wildcard *.cpp)\n";
+                makefile << "INC = $(wildcard *.hpp)\n";
                 makefile << "OBJ = $(SRC:.cpp=.o)\n";
                 makefile << "all: $(NAME)\n";
                 makefile << "$(NAME): $(OBJ)\n";
