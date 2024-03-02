@@ -11,10 +11,10 @@ int main() {
 
     std::cout << "path of your working dir :";
     std::cin >> PATH;
-	
+
     if (std::ifstream(PATH)) {
         chdir(PATH.c_str());
-        std::cout << "classs name: ";
+        std::cout << "class name: ";
         std::cin >> CLASS;
 
         if (!CLASS.empty()) {
@@ -99,7 +99,7 @@ int main() {
                 makefile << "re: fclean all\n";
             } else {
                 std::cout << "______________________________________\n";
-                std::cout << "\x1b[31mNo Class Name Entered\033[m\n";
+                std::cout << "\x1b[31mNo Makefile and main.cpp created\033[m\n";
             }
         } else {
             std::cout << "______________________________________\n";
