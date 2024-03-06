@@ -3,15 +3,20 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <ctime>
+#include <stdio.h>
+ #include <sys/types.h>
+#include <pwd.h>
+#include <uuid/uuid.h>
+
 
 int main() {
     std::string PATH = "";
     std::string CLASS = "";
     std::string OPTION = "";
-
+    const char *USER;
+    USER = getpwuid(geteuid())->pw_name;
     std::cout << "path of your working dir :";
     std::cin >> PATH;
-
     if (std::ifstream(PATH)) {
         chdir(PATH.c_str());
         std::cout << "class name: ";
@@ -21,7 +26,7 @@ int main() {
             std::ofstream classHeader(CLASS + ".hpp");
 			 std::time_t currentTime = std::time(0);
 			classHeader << "//\n";
-            classHeader << "// Created by reda ghouzraf on " << std::asctime(std::localtime(&currentTime)) << "//\n";
+            classHeader << "// Created by "<<USER <<" on " << std::asctime(std::localtime(&currentTime)) << "//\n";
             classHeader << "#ifndef " << CLASS << "_HPP" << std::endl;
             classHeader << "#define " << CLASS << "_HPP" << std::endl;
             classHeader << "\n#include <iostream>\n" << std::endl;
@@ -36,7 +41,7 @@ int main() {
 
             std::ofstream classSource(CLASS + ".cpp");
 			classSource << "//\n";
-            classSource << "// Created by reda ghouzraf on " << std::asctime(std::localtime(&currentTime)) << "//\n";
+            classSource << "// Created by "<<USER <<" on " << std::asctime(std::localtime(&currentTime)) << "//\n";
             classSource << "#include \"" << CLASS << ".hpp\"\n" << std::endl;
             classSource << CLASS << "::" << CLASS << "()\n";
             classSource << "{\n";
@@ -69,7 +74,7 @@ int main() {
             if (OPTION == "y" || OPTION == "yes") {
                 std::ofstream mainFile("main.cpp");
 				mainFile << "//\n";
-            	mainFile << "// Created by reda ghouzraf on " << std::asctime(std::localtime(&currentTime)) << "//\n";
+            	mainFile << "// Created by "<<USER <<" on " << std::asctime(std::localtime(&currentTime)) << "//\n";
                 mainFile << "#include \"" << CLASS << ".hpp\"\n\n";
                 mainFile << "int main()\n";
                 mainFile << "{\n";
@@ -79,7 +84,7 @@ int main() {
 
                 std::ofstream makefile("Makefile");
 				makefile << "#\n";
-            	makefile << "# Created by reda ghouzraf on " << std::asctime(std::localtime(&currentTime)) << "#\n";
+            	makefile << "# Created by "<<USER <<" on " << std::asctime(std::localtime(&currentTime)) << "#\n";
                 makefile << "NAME = " << CLASS << "\n";
                 makefile << "FLAGS = -Wall -Wextra -Werror\n";
                 makefile << "CC = c++\n";
