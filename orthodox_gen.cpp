@@ -91,7 +91,7 @@ int main() {
                 makefile << "$(NAME): $(OBJ)\n";
                 makefile << "	$(CC) $(FLAGS) $(STD) $(OBJ) -o $(NAME)\n";
                 makefile << "%.o: %.cpp $(INC)\n";
-                makefile << "	$(CC) $(FLAGS) -c $< -o $@\n";
+                makefile << "	$(CC) $(STD) $(FLAGS) -c $< -o $@\n";
                 makefile << "clean:\n";
                 makefile << "	rm -rf $(OBJ)\n";
                 makefile << "fclean: clean\n";
